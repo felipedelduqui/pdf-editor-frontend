@@ -13,7 +13,11 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "paths": {
+    "pdfjs-dist": ["node_modules/pdfjs-dist"],
+    "pdfjs-dist/build/pdf.worker.mjs": ["node_modules/pdfjs-dist/build/pdf.worker.mjs"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
