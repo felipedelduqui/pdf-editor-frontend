@@ -4,8 +4,15 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "rootDir": "./src",
+    "paths": {
+      "pdfjs-dist": ["./node_modules/pdfjs-dist"],
+      "pdfjs-dist/*": ["./node_modules/pdfjs-dist/*"]
+    }
   },
+  "files": [
+    "src/main.ts"
+  ],
   "include": [
     "src/**/*.ts"
   ],
