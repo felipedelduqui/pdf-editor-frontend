@@ -1,0 +1,340 @@
+@use 'sass:color';
+
+$primary-color: #677EA1; // Modern and playful purple/blue tone
+$text-dark: #1C1C1E;
+$text-muted: #8E8E93;
+$bg-light: #F2F2F2;
+$border-radius-lg: 16px;
+$border-radius-sm: 8px;
+$transition-smooth: all 0.2s ease-in-out;
+$font-logo: "Trebuchet";
+$font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+
+.chroma-container {
+  font-family: $font-body;
+  color: $text-dark;
+  background-color: #FFFFFF;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+
+  .chroma-header {
+    width: 100%;
+    max-width: 1200px; // Aligns with the main content container boundary
+    display: flex;
+    justify-content: space-between; // Pushes brand text to the left and actions/navigation to the right
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #E5E5EA; // Subtle bottom divider standard in application headers
+    margin-bottom: 2.5rem;
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem; // Spatial gap between the logo image and the text wrapper
+
+      .chroma-logo-img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain; // Prevents aspect ratio distortion or clipping
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05)); // Soft shadow mapping the graphic outline
+      }
+
+      .brand-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .logo {
+          font-family: $font-logo;
+          font-size: 1.8rem; // Calibrated scale for horizontal navbar alignment
+          font-weight: 800;
+          letter-spacing: -0.5px;
+          line-height: 1.2;
+          color: $primary-color; // Serene corporate tone matching the layout reference
+        }
+
+        .subtitle {
+          color: $text-muted;
+          margin: 0;
+          font-size: 0.95rem;
+          font-weight: 400;
+        }
+      }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+
+      .auth-group {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem; // Layout padding between navigation actions
+
+        button {
+          font-family: inherit;
+          font-size: 1rem;
+          font-weight: 600;
+          border: none;
+          cursor: pointer;
+          transition: $transition-smooth;
+        }
+
+        .btn-login {
+          background: none;
+          color: #4A5568; // Steel gray color matching the branding reference
+
+          &:hover {
+            color: $text-dark;
+          }
+        }
+
+        .btn-signup {
+          background-color: #EDF2F7; // Soft light gray pill background
+          color: #2D3748;
+          padding: 0.65rem 1.5rem;
+          border-radius: 2rem; // Capsule/Pill border radius structure
+
+          &:hover {
+            background-color: color.adjust(#EDF2F7, $lightness: -4%);
+          }
+        }
+      }
+
+      // Responsivity
+      .chroma-menu-btn {
+        width: 44px;
+        height: 44px;
+        background-color: #F4F6F8; // Light gray background matching reference
+        border: none;
+        border-radius: 8px; // Soft rounded corners
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px; // Precise spacing between horizontal vector lines
+        cursor: pointer;
+        transition: $transition-smooth;
+        padding: 0;
+
+        &:hover {
+          background-color: color.adjust(#F4F6F8, $lightness: -4%);
+        }
+
+        .hamburger-line {
+          width: 20px;
+          height: 2.5px;
+          background-color: #6C829F; // Slate blue color matching the mobile specification
+          border-radius: 2px; // Rounded line caps
+          display: block;
+        }
+      }
+    }
+
+    @media (max-width: 767px) {
+      .auth-group {
+        display: none !important; // Conditionally hides desktop authentication actions on mobile Viewports
+      }
+    }
+
+    @media (min-width: 768px) {
+      .chroma-menu-btn {
+        display: none !important; // Conditionally hides hamburger navigation on desktop Viewports
+      }
+    }  
+
+  }
+
+  .chroma-content {
+    width: 100%;
+    max-width: 1200px; // Expanded width matrix to optimize horizontal data distribution
+    padding: 0 2rem;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  // Upload Zone Structural Styling
+  .upload-section {
+    width: 100%;
+
+    .drop-zone {
+      background-color: $bg-light;
+      border: 3px dashed #D1D1D6;
+      border-radius: $border-radius-lg;
+      padding: 4rem 2rem;
+      text-align: center;
+      transition: $transition-smooth;
+      cursor: pointer;
+
+      &:hover {
+        border-color: $primary-color;
+        background-color: rgba($primary-color, 0.04);
+      }
+
+      .upload-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+      }
+
+      h3 {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+
+      p {
+        color: $text-muted;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
+  // Editor Workspace Structural Styling
+  .editor-section {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+
+    .toolbar {
+      background-color: $bg-light;
+      border-radius: $border-radius-lg;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      height: fit-content;
+
+      .tool-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        .group-label {
+          font-weight: 600;
+          font-size: 0.9rem;
+          text-transform: uppercase;
+          color: $text-muted;
+          letter-spacing: 0.5px;
+        }
+
+        .color-palette {
+          display: flex;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+
+          .color-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: $transition-smooth;
+
+            &:hover { transform: scale(1.1); }
+            &.active { border-color: $text-dark; }
+
+            &.black  { background-color: #000000; }
+            &.red    { background-color: #FF3B30; }
+            &.blue   { background-color: #007AFF; }
+            &.green  { background-color: #34C759; }
+            &.yellow { background-color: #FFCC00; }
+          }
+        }
+
+        input[type="range"] {
+          width: 100%;
+          accent-color: $primary-color;
+        }
+      }
+
+      .actions {
+        margin-top: 1rem;
+        gap: 0.5rem;
+      }
+    }
+
+    .canvas-workspace {
+      background-color: $bg-light;
+      border-radius: $border-radius-lg;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 400px;
+
+      .canvas-wrapper {
+        background-color: #FFFFFF;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border-radius: $border-radius-sm;
+        width: 100%;
+        max-width: 500px;
+        aspect-ratio: 1 / 1.4142;
+        overflow: hidden;
+        position: relative; // Cria o contexto de empilhamento para as camadas filhas
+
+        canvas {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+
+        .pdf-layer {
+          position: relative;
+          z-index: 1;
+        }
+
+        .paint-layer {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 2;
+          cursor: crosshair;
+          
+          // Black lines won't be painted
+          mix-blend-mode: multiply;
+          pointer-events: auto;
+        }
+      }
+        }
+      }
+
+  // Global Action Buttons (Enterprise Specification)
+  .chroma-btn-primary {
+    background-color: $primary-color;
+    color: #FFFFFF;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+    transition: $transition-smooth;
+    text-align: center;
+    display: inline-block;
+
+    &:hover {
+      background-color: color.adjust($primary-color, $lightness: -8%);
+    }
+  }
+
+  .chroma-btn-secondary {
+    background-color: #FFFFFF;
+    color: $text-dark;
+    border: 1px solid #D1D1D6;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+    transition: $transition-smooth;
+    text-align: center;
+
+    &:hover {
+      background-color: $bg-light;
+    }
+  }
+}

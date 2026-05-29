@@ -1,0 +1,84 @@
+<div class="chroma-container">
+  <header class="chroma-header">
+    <div class="header-left">
+      <img src="/logo-removebg-preview.png" alt="ChromaPaint Logo" class="chroma-logo-img" />
+      
+      <div class="brand-text">
+        <div class="logo">ChromaPaint</div>
+        <p class="subtitle">PDF Paint Online</p>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="auth-group">
+        <button class="btn-login">Log in</button>
+        <button class="btn-signup">Sign up</button>
+       </div>
+
+      <button class="chroma-menu-btn" aria-label="Menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="chroma-content">
+    @if (!pdfFile) {
+      <section class="upload-section">
+        <div class="drop-zone" 
+             (dragover)="$event.preventDefault()" 
+             (drop)="onFileDropped($event)">
+          <div class="upload-icon">📄</div>
+          <h3>Select your PDF document</h3>
+          <p>Drag and drop your file here, or browse from your device</p>
+          
+          <input type="file" 
+                 id="pdf-upload" 
+                 accept="application/pdf" 
+                 (change)="onFileSelected($event)" 
+                 hidden />
+          <label for="pdf-upload" class="chroma-btn-primary">Browse File</label>
+        </div>
+      </section>
+    } @else {
+      <section class="editor-section">
+        <div class="toolbar">
+          <div class="tool-group">
+            <span class="group-label">Colors</span>
+            <div class="color-palette">
+              <button class="color-dot black active" (click)="changeColor('#000000')"></button>
+              <button class="color-dot red" (click)="changeColor('#FF3B30')"></button>
+              <button class="color-dot blue" (click)="changeColor('#007AFF')"></button>
+              <button class="color-dot green" (click)="changeColor('#34C759')"></button>
+              <button class="color-dot yellow" (click)="changeColor('#FFCC00')"></button>
+            </div>
+          </div>
+
+          <div class="tool-group">
+            <span class="group-label">Brush Size</span>
+            <input type="range" min="2" max="25" value="5" (input)="changeThickness($event)" />
+          </div>
+
+          <div class="tool-group actions">
+            <button class="chroma-btn-secondary" (click)="resetEditor()">Clear</button>
+            <button class="chroma-btn-primary" (click)="saveDocument()">Download PDF</button>
+          </div>
+        </div>
+
+        <!-- Canvas workspace where PDF will be rendered and edited -->
+        <div class="canvas-workspace">
+          <div class="canvas-wrapper">
+            <canvas #pdfCanvas class="pdf-layer"></canvas>
+            
+            <canvas #paintCanvas class="paint-layer"
+                    (mousedown)="startDrawing($event)"
+                    (mousemove)="draw($event)"
+                    (mouseup)="stopDrawing()"
+                    (mouseleave)="stopDrawing()"></canvas>
+          </div>
+        </div>
+      </section>
+    }
+  </main>
+</div>
