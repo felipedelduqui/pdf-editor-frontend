@@ -1,7 +1,7 @@
 <div class="chroma-container">
   <header class="chroma-header">
     <div class="header-left">
-      <img src="/logo-removebg-preview.png" alt="ChromaPaint Logo" class="chroma-logo-img" />
+      <img src="assets/logo-removebg-preview.png" alt="ChromaPaint Logo" class="chroma-logo-img" />
       
       <div class="brand-text">
         <div class="logo">ChromaPaint</div>
@@ -44,6 +44,27 @@
     } @else {
       <section class="editor-section">
         <div class="toolbar">
+
+          <div class="tool-group">
+            <span class="group-label">Tools</span>
+            <div class="tool-actions">
+              <button 
+                class="chroma-btn-secondary icon-btn" 
+                [class.active]="currentTool === 'brush'" 
+                (click)="setTool('brush')"
+                title="Pincel">
+                <span class="material-symbols-outlined">brush</span>
+              </button>
+              <button 
+                class="chroma-btn-secondary icon-btn" 
+                [class.active]="currentTool === 'bucket'" 
+                (click)="setTool('bucket')"
+                title="Balde de Tinta">
+                <span class="material-symbols-outlined">format_color_fill</span>
+              </button>
+            </div>
+          </div>
+          
           <div class="tool-group">
             <span class="group-label">Colors</span>
             <div class="color-palette">
@@ -66,13 +87,10 @@
           </div>
         </div>
 
-        <!-- Canvas workspace where PDF will be rendered and edited -->
         <div class="canvas-workspace">
           <div class="canvas-wrapper">
-            <canvas #pdfCanvas class="pdf-layer"></canvas>
-            
-            <canvas #paintCanvas class="paint-layer"
-                    (mousedown)="startDrawing($event)"
+            <canvas #pdfCanvas 
+                    (mousedown)="onCanvasClick($event)"
                     (mousemove)="draw($event)"
                     (mouseup)="stopDrawing()"
                     (mouseleave)="stopDrawing()"></canvas>
